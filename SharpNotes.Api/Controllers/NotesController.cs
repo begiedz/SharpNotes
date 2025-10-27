@@ -15,4 +15,15 @@ public class NotesController : ControllerBase
     [HttpGet]
     public ActionResult<List<Note>> GetAll() =>
     NoteService.GetAll();
+
+    [HttpGet("{id}")]
+    public ActionResult<Note> Get(int id)
+    {
+        var note = NoteService.Get(id);
+
+        if (note == null)
+            return NotFound();
+
+        return note;
+    }
 }
