@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace SharpNotes.Api.Controllers;
 
 [ApiController]
-[Route("[controller]/all")]
-public class NoteController : ControllerBase
+[Route("[controller]")]
+public class NotesController : ControllerBase
 {
-    public NoteController()
+    public NotesController()
     {
     }
 
