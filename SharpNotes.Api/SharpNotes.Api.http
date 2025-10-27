@@ -1,6 +1,10 @@
-@SharpNotes.Api_HostAddress = http://localhost:5243
+@SharpNotes.Api_HostAddress = https://localhost:5001/api
 
-GET {{SharpNotes.Api_HostAddress}}/weatherforecast/
+GET {{SharpNotes.Api_HostAddress}}/notes/
+Accept: application/json
+
+###
+GET {{SharpNotes.Api_HostAddress}}/notes/1
 Accept: application/json
 
 ###

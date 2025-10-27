@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace SharpNotes.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class NotesController : ControllerBase
 {
     public NotesController()
