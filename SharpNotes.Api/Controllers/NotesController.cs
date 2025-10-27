@@ -26,4 +26,11 @@ public class NotesController : ControllerBase
 
         return note;
     }
+
+    [HttpPost]
+    public IActionResult Create(Note note) 
+    {
+        NoteService.Add(note);
+        return CreatedAtAction(nameof(Get), new {id = note.Id}, note);
+    }
 }
