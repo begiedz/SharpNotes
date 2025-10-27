@@ -13,4 +13,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SharpNotes.Application\SharpNotes.Application.csproj" />
+    <ProjectReference Include="..\SharpNotes.Domain\SharpNotes.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,3 +1,5 @@
 <Solution>
   <Project Path="SharpNotes.Api/SharpNotes.Api.csproj" />
+  <Project Path="SharpNotes.Application/SharpNotes.Application.csproj" />
+  <Project Path="SharpNotes.Domain/SharpNotes.Domain.csproj" />
 </Solution>
