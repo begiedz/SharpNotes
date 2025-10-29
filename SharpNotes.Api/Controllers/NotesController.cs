@@ -28,9 +28,24 @@ public class NotesController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(Note note) 
+    public IActionResult Create(Note note)
     {
         NoteService.Add(note);
-        return CreatedAtAction(nameof(Get), new {id = note.Id}, note);
+        return CreatedAtAction(nameof(Get), new { id = note.Id }, note);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult Update(int id, Note note)
+    {
+        if (id != note.Id)
+            return BadRequest();
+
+        var existingNote = NoteService.Get(id);
+        if (existingNote is null)
+            return NotFound();
+
+        NoteService.Update(note);
+
+        return NoContent();
     }
 }
