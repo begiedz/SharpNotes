@@ -1,12 +1,12 @@
 'use client';
 import { useEffect, useState } from 'react';
-import type { Note } from '@/types/note';
-import { fetchNotes } from '@/services/notes';
+import type { Joy } from '@/types/joy';
+import { fetchJoys } from '@/services/joys';
 export default function Home() {
-  const [notes, setNotes] = useState<Note[]>([]);
+  const [notes, setNotes] = useState<Joy[]>([]);
 
   useEffect(() => {
-    fetchNotes()
+    fetchJoys()
       .then(setNotes)
       .catch(err => console.error('fetch error', err));
   }, []);
