@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:16
+    container_name: smalljoys_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: smalljoys
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api-dev:
+    build:
+      context: ./src
+      dockerfile: SmallJoys.Api/Dockerfile
+    container_name: smalljoys_api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__Default: >
+        Host=postgres;Port=5432;Database=smalljoys;
+        Username=postgres;Password=postgres123;Include Error Detail=true
+      ASPNETCORE_URLS: http://+:8080
+    ports:
+      - "8080:8080"  
+      - "8081:8081"
+volumes:
+  pgdata:
+
+  

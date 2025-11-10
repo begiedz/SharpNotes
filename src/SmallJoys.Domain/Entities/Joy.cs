@@ -1,6 +1,6 @@
 ﻿namespace SmallJoys.Domain.Entities;
 
-public class Note
+public class Joy
 {
     public int Id { get; set; }
     public string Title { get; set; } = String.Empty;

@@ -1,11 +1,14 @@
+﻿using Microsoft.EntityFrameworkCore;
+using SmallJoys.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 const string CorsPolicy = "FrontendPolicy";
 
-// Load origins list form current env.
+// Load origins list from current env.
 var origins = builder.Configuration
     .GetSection("Cors:AllowedOrigins")
-    .Get<string[]>() ?? Array.Empty<string>();
+    .Get<string[]>() ?? [];
 
 builder.Services.AddCors(origin =>
 {
@@ -20,6 +23,7 @@ builder.Services.AddCors(origin =>
 
 builder.Services.AddControllers();
 builder.Services.AddHealthChecks();
+builder.Services.AddInfrastructure(builder.Configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -41,5 +45,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapHealthChecks("/health");
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<SmallJoys.Infrastructure.Data.AppDbContext>();
+    await db.Database.MigrateAsync();
+}
+
 
 app.Run();
