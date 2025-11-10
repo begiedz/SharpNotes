@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SmallJoys.Api/SmallJoys.Api.csproj" />
+    <Project Path="src/SmallJoys.Application/SmallJoys.Application.csproj" />
+    <Project Path="src/SmallJoys.Domain/SmallJoys.Domain.csproj" />
+  </Folder>
+</Solution>

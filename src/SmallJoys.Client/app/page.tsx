@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <main>
-      <h1 className="font-bold text-4xl">SharpNotes</h1>
+      <h1 className="font-bold text-4xl">Small Joys</h1>
       <ul className="my-8">
         {notes.map(note => (
           <li

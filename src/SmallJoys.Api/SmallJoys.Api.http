@@ -1,0 +1,10 @@
+@SmallJoys.Api_HostAddress = https://localhost:5001/api
+
+GET {{SmallJoys.Api_HostAddress}}/notes/
+Accept: application/json
+
+###
+GET {{SmallJoys.Api_HostAddress}}/notes/1
+Accept: application/json
+
+###

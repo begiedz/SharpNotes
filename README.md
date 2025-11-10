@@ -1,1 +1,1 @@
-# SharpNotes
+# SmallJoys

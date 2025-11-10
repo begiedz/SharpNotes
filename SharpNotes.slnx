@@ -1,7 +1,0 @@
-<Solution>
-  <Folder Name="/src/">
-    <Project Path="src/SharpNotes.Api/SharpNotes.Api.csproj" />
-    <Project Path="src/SharpNotes.Application/SharpNotes.Application.csproj" />
-    <Project Path="src/SharpNotes.Domain/SharpNotes.Domain.csproj" />
-  </Folder>
-</Solution>
