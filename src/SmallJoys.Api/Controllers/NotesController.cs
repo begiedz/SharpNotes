@@ -1,8 +1,8 @@
-﻿using SharpNotes.Domain.Entities;
-using SharpNotes.Application.Services;
+﻿using SmallJoys.Domain.Entities;
+using SmallJoys.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace SharpNotes.Api.Controllers;
+namespace SmallJoys.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

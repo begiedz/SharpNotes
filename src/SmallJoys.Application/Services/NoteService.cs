@@ -1,20 +1,21 @@
-﻿using SharpNotes.Domain.Entities;
-namespace SharpNotes.Application.Services;
+﻿using SmallJoys.Domain.Entities;
+namespace SmallJoys.Application.Services;
 
 public static class NoteService
 {
     static List<Note> Notes { get; }
     static int nextId = 4;
-    static NoteService() {
+    static NoteService()
+    {
 
-        Notes = [ 
-            new() 
-            { 
+        Notes = [
+            new()
+            {
                 Id = 1,
                 Title = "First Note",
                 Content = "This is first note form ASP.NET API!"
             },
-              new() 
+              new()
               {
                 Id = 2,
                 Title = "The Art of Pizza",
@@ -34,13 +35,13 @@ public static class NoteService
 
     public static Note? Get(int id) => Notes.FirstOrDefault(note => note.Id == id);
 
-    public static void Add(Note note) 
+    public static void Add(Note note)
     {
         note.Id = nextId++;
         Notes.Add(note);
     }
 
-    public static void Delete(int id) 
+    public static void Delete(int id)
     {
         var note = Get(id);
         if (note is null)
@@ -49,7 +50,7 @@ public static class NoteService
         Notes.Remove(note);
     }
 
-    public static void Update(Note note) 
+    public static void Update(Note note)
     {
         var index = Notes.FindIndex(n => n.Id == note.Id);
         if (index == -1)

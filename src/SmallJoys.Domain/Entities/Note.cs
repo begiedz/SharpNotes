@@ -1,4 +1,4 @@
-﻿namespace SharpNotes.Domain.Entities;
+﻿namespace SmallJoys.Domain.Entities;
 
 public class Note
 {

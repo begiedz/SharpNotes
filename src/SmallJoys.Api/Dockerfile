@@ -27,4 +27,4 @@ RUN dotnet publish "./SmallJoys.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publ
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "SharpNotes.Api.dll"]
+ENTRYPOINT ["dotnet", "SmallJoys.Api.dll"]
