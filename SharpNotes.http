@@ -1,0 +1,6 @@
+@SharpNotes_HostAddress = http://localhost:5177
+
+GET {{SharpNotes_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
