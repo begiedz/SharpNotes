@@ -1,3 +1,4 @@
+using SharpNotes.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -18,15 +19,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+var notes = new List<Note>
+{
+    new(1, "First Note", "Example text for the first note.",DateTime.UtcNow.AddDays(-2)),
+    new(2, "Second Note", "Lorem ipsum.", DateTime.UtcNow.AddDays(-1)),
+    new(3, "Third Note", "I like pizza.")
+};
 
 app.MapGet("/api/notes", () =>
 {
-    return new[] { "Note1", "Note2", "Note3" };
+    return notes;
 });
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
