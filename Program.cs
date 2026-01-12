@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SharpNotes.Data;
+using SharpNotes.Interfaces;
+using SharpNotes.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,7 @@ var connectionString = builder.Configuration.GetConnectionString("Default")
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 builder.Services.AddControllers();
+builder.Services.AddScoped<INoteService, NoteService>();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
