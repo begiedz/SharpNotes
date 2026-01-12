@@ -1,17 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SharpNotes.Contracts;
 using SharpNotes.Interfaces;
-using SharpNotes.Models;
 
 namespace SharpNotes.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
-public class NoteController : ControllerBase
+public class NotesController : ControllerBase
 {
     private readonly INoteService _noteService;
 
-    public NoteController(INoteService noteService)
+    public NotesController(INoteService noteService)
     {
         _noteService = noteService;
     }
