@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using SharpNotes.Data;
+using SharpNotes.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<AppDbContext>(opt =>
+    opt.UseInMemoryDatabase("sharp-notes"));
+
+builder.Services.AddScoped<INoteService, NoteService>();
 
 var app = builder.Build();
 
@@ -25,5 +33,10 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    DbSeeder.Seed(dbContext);
+}
 
 app.Run();
