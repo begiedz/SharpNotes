@@ -1,14 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using SharpNotes.Models;
+using SharpNotes.Services;
 using System.Diagnostics;
 
 namespace SharpNotes.Controllers;
 
-public class HomeController : Controller
+public class HomeController(INoteService noteService) : Controller
 {
-    public IActionResult Index()
+    private readonly INoteService _noteService = noteService;
+
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var notes = await _noteService.GetNotesAsync();
+        return View(notes);
     }
 
     public IActionResult Privacy()
