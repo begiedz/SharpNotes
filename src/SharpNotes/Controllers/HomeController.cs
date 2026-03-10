@@ -11,8 +11,7 @@ public class HomeController(INoteService noteService) : Controller
 
     public async Task<IActionResult> Index()
     {
-        var notes = await _noteService.GetNotesAsync();
-        return View(notes);
+        return RedirectToAction("Index", "Notes");
     }
 
     public IActionResult Privacy()

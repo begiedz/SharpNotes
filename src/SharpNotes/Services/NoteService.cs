@@ -10,7 +10,7 @@ public class NoteService(AppDbContext context) : INoteService
 
     public async Task<List<Note>> GetAllAsync()
     {
-        var notes = await _context.Notes.AsNoTracking().ToListAsync();
+        var notes = await _context.Notes.AsNoTracking().OrderDescending().ToListAsync();
         return notes;
     }
     public async Task<Note?> GetByIdAsync(int id)

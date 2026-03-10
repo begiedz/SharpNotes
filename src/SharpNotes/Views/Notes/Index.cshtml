@@ -5,16 +5,15 @@
 
 <div class="text-center">
     <h1 class="display-4">All Notes</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <div class="list-group">
         @foreach (var note in Model)
         {
-            <a href="#" class="list-group-item list-group-item-action ">
+            <a href="/notes/@note.Id" class="list-group-item list-group-item-action p-4">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">@note.Title</h5>
+                    <h2 class="mb-1">@note.Title</h2>
                     <small class="text-body-secondary">@note.Created</small>
                 </div>
-                <p class="mb-1 text-start">@note.Content</p>
+                <p class="my-2 text-start text-truncate">@note.Content</p>
             </a>
         }
 
