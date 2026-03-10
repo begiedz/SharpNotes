@@ -1,9 +1,10 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using SharpNotes.Models;
 using SharpNotes.Services;
 
 namespace SharpNotes.Controllers
 {
-    [Route("notes")]
     public class NotesController(INoteService noteService) : Controller
     {
         private readonly INoteService _noteService = noteService;
@@ -23,6 +24,17 @@ namespace SharpNotes.Controllers
                 return NotFound();
 
             return View(note);
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
