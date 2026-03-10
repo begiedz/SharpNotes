@@ -4,15 +4,19 @@
 @model List<SharpNotes.Models.Note>
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">All Notes</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <ul>
-
+    <div class="list-group">
         @foreach (var note in Model)
         {
-            <li>
-                @note.Title
-            </li>
+            <a href="#" class="list-group-item list-group-item-action ">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">@note.Title</h5>
+                    <small class="text-body-secondary">@note.Created</small>
+                </div>
+                <p class="mb-1 text-start">@note.Content</p>
+            </a>
         }
-    </ul>
+
+    </div>
 </div>
