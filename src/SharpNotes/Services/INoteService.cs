@@ -6,4 +6,5 @@ public interface INoteService
 {
     public Task<List<Note>> GetAllAsync();
     public Task<Note?> GetByIdAsync(int id);
+    public Task<Note> CreateAsync(Note note);
 }
