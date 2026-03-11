@@ -4,5 +4,6 @@ namespace SharpNotes.Services;
 
 public interface INoteService
 {
-    public Task<List<Note>> GetNotesAsync();
+    public Task<List<Note>> GetAllAsync();
+    public Task<Note?> GetByIdAsync(int id);
 }
