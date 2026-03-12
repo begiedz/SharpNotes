@@ -28,7 +28,7 @@ namespace SharpNotes.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View(new Note());
         }
@@ -41,7 +41,40 @@ namespace SharpNotes.Controllers
                 return View(note);
 
             await _noteService.CreateAsync(note);
-            TempData["StatusMessage"] = "Note has been created.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var note = await _noteService.GetByIdAsync(id);
+
+            if (note is null)
+                return NotFound();
+
+            return View(note);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Note note)
+        {
+            var updated = await _noteService.UpdateAsync(id, note);
+
+            if (updated is null)
+                return NotFound();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleted = await _noteService.DeleteAsync(id);
+            if (!deleted)
+                return NotFound();
+
             return RedirectToAction(nameof(Index));
         }
 
