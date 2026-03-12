@@ -9,6 +9,7 @@ namespace SharpNotes.Controllers
     {
         private readonly INoteService _noteService = noteService;
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var notes = await _noteService.GetAllAsync();
@@ -26,9 +27,22 @@ namespace SharpNotes.Controllers
             return View(note);
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public async Task<IActionResult> Create()
         {
-            return View();
+            return View(new Note());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Note note)
+        {
+            if (!ModelState.IsValid)
+                return View(note);
+
+            await _noteService.CreateAsync(note);
+            TempData["StatusMessage"] = "Note has been created.";
+            return RedirectToAction(nameof(Index));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
