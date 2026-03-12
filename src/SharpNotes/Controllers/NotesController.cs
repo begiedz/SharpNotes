@@ -56,11 +56,23 @@ namespace SharpNotes.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Note note)
         {
             var updated = await _noteService.UpdateAsync(id, note);
 
             if (updated is null)
+                return NotFound();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleted = await _noteService.DeleteAsync(id);
+            if (!deleted)
                 return NotFound();
 
             return RedirectToAction(nameof(Index));

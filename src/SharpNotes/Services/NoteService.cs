@@ -48,6 +48,14 @@ public class NoteService(AppDbContext context) : INoteService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var note = await GetByIdAsync(id);
+
+        if (note is null)
+            return false;
+
+        _context.Notes.Remove(note);
+        await _context.SaveChangesAsync();
+
+        return true;
     }
 }
