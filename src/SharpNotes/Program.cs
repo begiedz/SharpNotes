@@ -11,6 +11,8 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 
 builder.Services.AddScoped<INoteService, NoteService>();
 
+builder.Services.AddServerSideBlazor();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,5 +40,6 @@ using (var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     DbSeeder.Seed(dbContext);
 }
+app.MapBlazorHub();
 
 app.Run();
