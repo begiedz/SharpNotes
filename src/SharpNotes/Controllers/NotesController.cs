@@ -3,85 +3,84 @@ using Microsoft.AspNetCore.Mvc;
 using SharpNotes.Models;
 using SharpNotes.Services;
 
-namespace SharpNotes.Controllers
+namespace SharpNotes.Controllers;
+
+public class NotesController(INoteService noteService) : Controller
 {
-    public class NotesController(INoteService noteService) : Controller
+    private readonly INoteService _noteService = noteService;
+
+    [HttpGet]
+    public async Task<IActionResult> Index()
     {
-        private readonly INoteService _noteService = noteService;
+        var notes = await _noteService.GetAllAsync();
+        return View(notes);
+    }
 
-        [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            var notes = await _noteService.GetAllAsync();
-            return View(notes);
-        }
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> Details(int id)
+    {
+        var note = await _noteService.GetByIdAsync(id);
 
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> Details(int id)
-        {
-            var note = await _noteService.GetByIdAsync(id);
+        if (note == null)
+            return NotFound();
 
-            if (note == null)
-                return NotFound();
+        return View(note);
+    }
 
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View(new Note());
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(Note note)
+    {
+        if (!ModelState.IsValid)
             return View(note);
-        }
 
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View(new Note());
-        }
+        await _noteService.CreateAsync(note);
+        return RedirectToAction(nameof(Index));
+    }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Note note)
-        {
-            if (!ModelState.IsValid)
-                return View(note);
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var note = await _noteService.GetByIdAsync(id);
 
-            await _noteService.CreateAsync(note);
-            return RedirectToAction(nameof(Index));
-        }
+        if (note is null)
+            return NotFound();
 
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
-        {
-            var note = await _noteService.GetByIdAsync(id);
+        return View(note);
+    }
 
-            if (note is null)
-                return NotFound();
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, Note note)
+    {
+        var updated = await _noteService.UpdateAsync(id, note);
 
-            return View(note);
-        }
+        if (updated is null)
+            return NotFound();
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Note note)
-        {
-            var updated = await _noteService.UpdateAsync(id, note);
+        return RedirectToAction(nameof(Index));
+    }
 
-            if (updated is null)
-                return NotFound();
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deleted = await _noteService.DeleteAsync(id);
+        if (!deleted)
+            return NotFound();
 
-            return RedirectToAction(nameof(Index));
-        }
+        return RedirectToAction(nameof(Index));
+    }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var deleted = await _noteService.DeleteAsync(id);
-            if (!deleted)
-                return NotFound();
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
